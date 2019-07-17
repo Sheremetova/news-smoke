@@ -9,7 +9,7 @@ class MainScreen:
         titles = []
 
         for el in App.driver().find_elements_by_id('titleText'):
-            titles.append(el.get_attribute('text'))
+            titles.append(el.text)
 
         return titles
 

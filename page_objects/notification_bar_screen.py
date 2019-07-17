@@ -13,12 +13,12 @@ class NotificationBarScreen:
         titles = []
 
         for el in App.driver().find_elements_by_id('android:id/title'):
-            titles.append(el.get_attribute('text'))
+            titles.append(el.text)
         return titles
 
     def contents():
         contents = []
 
         for el in App.driver().find_elements_by_id('android:id/text'):
-            contents.append(el.get_attribute('text'))
+            contents.append(el.text)
         return contents

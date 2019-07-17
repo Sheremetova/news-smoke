@@ -20,17 +20,26 @@ class NewsSmokeTests(unittest.TestCase):
         titles_before_scroll = MainScreen.titles()
         assert titles_before_scroll and '' not in titles_before_scroll, \
                "Some titles are empty"
+        contents_before_scroll= MainScreen.contents()
+        assert contents_before_scroll and '' not in contents_before_scroll, \
+               "Some contents are empty"
 
         # when I scroll down
         scroll_down()
 
         # then I should see another news cards
         titles_after_scroll = MainScreen.titles()
+        contents_after_scroll = MainScreen.contents()
 
         assert titles_after_scroll and '' not in titles_after_scroll, \
                "Some titles after scroll are empty"
+        assert contents_after_scroll and '' not in contents_after_scroll, \
+               "Some contents after scroll are empty"
+
         assert titles_before_scroll != titles_after_scroll, \
                "Same titles appears after scroll"
+        assert contents_before_scroll != contents_after_scroll, \
+               "Same contents appears after scroll"
 
         App.tear_down()
 

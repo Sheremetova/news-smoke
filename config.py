@@ -15,7 +15,7 @@ class App:
                 'appPackage': 'my.deler.newstestapplication',
                 'appActivity': 'my.deler.newstestapplication.screens.MainActivity',
                 'platformName': 'Android',
-                'platformVersion': '7.0',
+                'platformVersion': '7.0', # change in accordance with a connected device
                 'deviceName': 'Android Emulator',
                 'app': PATH('apk/news.apk'),
                 'noReset': True

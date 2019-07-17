@@ -35,9 +35,10 @@ class NewsSmokeTests(unittest.TestCase):
         MainScreen.wait_for_screen_active()
 
         # when I select first news card to display in the notifications bar
-        MainScreen.first_card().click()
-        first_card_title_text = MainScreen.first_card_title_text()
-        first_card_content_text = MainScreen.first_card_content_text()
+        first_news_card = MainScreen.visible_news_cards()[0]
+        first_news_card.click()
+        first_card_title_text = MainScreen.title_of(first_news_card)
+        first_card_content_text = MainScreen.content_of(first_news_card)
 
         # and I open Home
         execute_adb('shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN')

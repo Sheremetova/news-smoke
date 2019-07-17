@@ -2,6 +2,7 @@ from config import App
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 
 class MainScreen:
     def titles():
@@ -9,6 +10,7 @@ class MainScreen:
 
         for el in App.driver().find_elements_by_id('titleText'):
             titles.append(el.get_attribute('text'))
+
         return titles
 
 
@@ -17,11 +19,19 @@ class MainScreen:
         EC.presence_of_element_located((By.ID, 'cardView'))
         )
 
-    def first_card():
-        return App.driver().find_element_by_id('cardView')
+    def visible_news_cards():
+        cards = App.driver().find_elements_by_id('cardView')
+        for card in cards:
+            try:
+                card.find_element_by_id('titleText')
+                card.find_element_by_id('descriptionText')
+            except NoSuchElementException:
+                cards.remove(card)
 
-    def first_card_title_text():
-        return App.driver().find_element_by_id('titleText').get_attribute('text')
+        return cards
 
-    def first_card_content_text():
-        return App.driver().find_element_by_id('descriptionText').get_attribute('text')
+    def title_of(card):
+        return card.find_element_by_id('titleText').text
+
+    def content_of(card):
+        return card.find_element_by_id('descriptionText').text

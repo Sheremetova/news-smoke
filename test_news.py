@@ -8,7 +8,7 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-class SimpleAndroidTests(unittest.TestCase):
+class NewsSmokeTests(unittest.TestCase):
     def set_up(self):
         desired_capabilities = {
             'appPackage': 'my.deler.newstestapplication',

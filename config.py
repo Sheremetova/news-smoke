@@ -28,6 +28,14 @@ class App:
         return cls._driver
 
     @classmethod
+    def driver_exist(cls):
+        try:
+            cls._driver
+        except AttributeError:
+            return False
+        return True
+
+    @classmethod
     def tear_down(cls):
         # stop session
         cls._driver.quit()

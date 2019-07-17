@@ -12,4 +12,7 @@ def scroll_down():
                        400)
 
 def execute_adb(command):
-    subprocess.call(f'adb -s {App.driver().desired_capabilities["deviceUDID"]} {command}', shell=True)
+    if App.driver_exist():
+        subprocess.call(f'adb -s {App.driver().desired_capabilities["deviceUDID"]} {command}', shell=True)
+    else:
+        subprocess.call(f'adb {command}', shell=True)

@@ -18,7 +18,6 @@ class NewsSmokeTests(unittest.TestCase):
         # when I scroll down
         scroll_down()
 
-
         # then I should see another news cards
         titles_after_scroll = MainScreen.titles()
         assert len(titles_after_scroll) > 0

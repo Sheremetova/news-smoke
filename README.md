@@ -9,10 +9,10 @@
   - pyenv global 3.7.4
 
 3) Add the following to ~/.bash_profile
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  export PATH="$PYENV_ROOT/shims:$PATH"
-  export PATH="$PYENV_ROOT/completions/pyenv.bash:$PATH"
+  - export PYENV_ROOT="$HOME/.pyenv"
+  - export PATH="$PYENV_ROOT/bin:$PATH"
+  - export PATH="$PYENV_ROOT/shims:$PATH"
+  - export PATH="$PYENV_ROOT/completions/pyenv.bash:$PATH"
 
 4) Install following:
   - pip install pytest

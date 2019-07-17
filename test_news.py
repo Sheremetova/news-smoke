@@ -19,7 +19,7 @@ class NewsSmokeTests(unittest.TestCase):
         # then I see some news cards
         titles_before_scroll = MainScreen.titles()
         assert titles_before_scroll and '' not in titles_before_scroll, \
-               "Some titles before scroll are empty"
+               "Some titles are empty"
 
         # when I scroll down
         scroll_down()

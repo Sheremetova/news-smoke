@@ -31,6 +31,28 @@ class NewsSmokeTests(unittest.TestCase):
 
         tear_down()
 
+    def test_pass_card_to_notification(self):
+        # given I install and open the app
+        set_up()
+        self.wait_for_element_by_id('cardView')
+
+        # when I select first news card to display in the notifications bar
+        self.first_card().click()
+        first_card_title_text = self.first_card_title_text()
+        first_card_content_text = self.first_card_content_text()
+
+        # and I open Home
+        self.execute_adb('shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN')
+
+        # and I open notifications
+        driver().open_notifications()
+        self.wait_for_element_by_id('android:id/title')
+
+        # then I should see correct news card in notification bar
+        assert first_card_title_text in self.notification_titles()
+        assert first_card_content_text in self.notification_contents()
+
+        tear_down()
 
     def wait_for_element_by_id(self, id):
         WebDriverWait(driver(), 10).until(
@@ -49,3 +71,27 @@ class NewsSmokeTests(unittest.TestCase):
         height = driver().get_window_size()['height']
 
         driver().swipe(width*0.5, height*0.7, width*0.5, height*0.3, 400)
+
+    def first_card(self):
+        return driver().find_element_by_id('cardView')
+
+    def first_card_title_text(self):
+        return self.first_card().find_element_by_id('titleText').get_attribute('text')
+
+    def first_card_content_text(self):
+        return self.first_card().find_element_by_id('descriptionText').get_attribute('text')
+
+    def notification_titles(self):
+        ntf = []
+        for el in driver().find_elements_by_id('android:id/title'):
+            ntf.append(el.get_attribute('text'))
+        return ntf
+
+    def notification_contents(self):
+        ntf = []
+        for el in driver().find_elements_by_id('android:id/text'):
+            ntf.append(el.get_attribute('text'))
+        return ntf
+
+    def execute_adb(self, command):
+        subprocess.call(f'adb -s {driver().desired_capabilities["deviceUDID"]} {command}',shell=True)

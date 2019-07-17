@@ -15,7 +15,7 @@ class NewsSmokeTests(unittest.TestCase):
     def test_scroll_down(self):
         # given I install and open the app
         set_up()
-        self.wait_for_element_by_id('cardView')
+        MainScreen.wait_for_screen_active()
 
         # then I see some news cards
         titles_before_scroll = MainScreen.titles()
@@ -35,7 +35,7 @@ class NewsSmokeTests(unittest.TestCase):
     def test_pass_card_to_notification(self):
         # given I install and open the app
         set_up()
-        self.wait_for_element_by_id('cardView')
+        MainScreen.wait_for_screen_active()
 
         # when I select first news card to display in the notifications bar
         self.first_card().click()

@@ -44,6 +44,8 @@ class NewsSmokeTests(unittest.TestCase):
         assert len(titles_after_scroll) > 0
         assert titles_before_scroll != titles_after_scroll
 
+        self.tear_down()
+
     def wait_for_element_by_id(self, id):
         WebDriverWait(self.driver, 10).until(
         EC.presence_of_element_located((By.ID, id))

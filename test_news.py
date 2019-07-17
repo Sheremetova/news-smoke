@@ -1,11 +1,9 @@
 import subprocess
 import unittest
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from config import *
 from page_objects.main_screen import MainScreen
+from page_objects.notification_bar_screen import NotificationBarScreen
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
@@ -47,36 +45,19 @@ class NewsSmokeTests(unittest.TestCase):
 
         # and I open notifications
         driver().open_notifications()
-        self.wait_for_element_by_id('android:id/title')
+        NotificationBarScreen.wait_for_screen_active()
 
         # then I should see correct news card in notification bar
-        assert first_card_title_text in self.notification_titles()
-        assert first_card_content_text in self.notification_contents()
+        assert first_card_title_text in NotificationBarScreen.titles()
+        assert first_card_content_text in NotificationBarScreen.contents()
 
         tear_down()
-
-    def wait_for_element_by_id(self, id):
-        WebDriverWait(driver(), 10).until(
-        EC.presence_of_element_located((By.ID, id))
-        )
 
     def scroll_down(self):
         width = driver().get_window_size()['width']
         height = driver().get_window_size()['height']
 
         driver().swipe(width*0.5, height*0.7, width*0.5, height*0.3, 400)
-
-    def notification_titles(self):
-        ntf = []
-        for el in driver().find_elements_by_id('android:id/title'):
-            ntf.append(el.get_attribute('text'))
-        return ntf
-
-    def notification_contents(self):
-        ntf = []
-        for el in driver().find_elements_by_id('android:id/text'):
-            ntf.append(el.get_attribute('text'))
-        return ntf
 
     def execute_adb(self, command):
         subprocess.call(f'adb -s {driver().desired_capabilities["deviceUDID"]} {command}',shell=True)

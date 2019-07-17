@@ -62,7 +62,6 @@ class NewsSmokeTests(unittest.TestCase):
         assert first_card_content_text in NotificationBarScreen.contents(), \
                "Notification contents doesn't contain correct text"
 
-        import IPython; IPython.embed()
         App.tear_down()
 
     def test_news_filtering(self):

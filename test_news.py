@@ -1,6 +1,6 @@
 import unittest
 
-from config import set_up, tear_down
+from config import *
 from device import *
 from page_objects.main_screen import MainScreen
 from page_objects.notification_bar_screen import NotificationBarScreen

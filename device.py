@@ -1,11 +1,15 @@
 import subprocess
-from config import driver
+from config import App
 
 def scroll_down():
-    width = driver().get_window_size()['width']
-    height = driver().get_window_size()['height']
+    width = App.driver().get_window_size()['width']
+    height = App.driver().get_window_size()['height']
 
-    driver().swipe(width*0.5, height*0.7, width*0.5, height*0.3, 400)
+    App.driver().swipe(0.5 * width,
+                       0.7 * height,
+                       0.5 * width,
+                       0.3 * height,
+                       400)
 
 def execute_adb(command):
-    subprocess.call(f'adb -s {driver().desired_capabilities["deviceUDID"]} {command}', shell=True)
+    subprocess.call(f'adb -s {App.driver().desired_capabilities["deviceUDID"]} {command}', shell=True)

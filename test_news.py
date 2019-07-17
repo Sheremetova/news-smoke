@@ -1,4 +1,5 @@
 import unittest
+import time
 
 from config import App
 from device import *
@@ -53,4 +54,32 @@ class NewsSmokeTests(unittest.TestCase):
         assert first_card_content_text in NotificationBarScreen.contents(), \
                "Notification contents doesn't contain correct text"
 
+        import IPython; IPython.embed()
         App.tear_down()
+
+    def test_news_filtering(self):
+        # given I install and open the app
+        App.set_up()
+        MainScreen.wait_for_screen_active()
+
+        # when I enter 'SpaceX' to search box
+        titles_before_update = MainScreen.titles()
+        text = 'SpaceX'
+        MainScreen.type_to_search_box(text)
+        self.wait_until_titles_updated(titles_before_update)
+
+        # then I should see news cards with the 'SpaceX' text in the title or content
+        for card in MainScreen.visible_news_cards():
+            assert text in MainScreen.title_of(card) or \
+                   text in MainScreen.content_of(card)
+
+        App.tear_down()
+
+    def wait_until_titles_updated(self, titles_before_update):
+        end = time.time() + 10
+        while time.time() < end:
+            if titles_before_update != MainScreen.titles():
+                return True
+            else:
+                time.sleep(0.1)
+        raise Exception('Titles were not updated in 10 seconds')

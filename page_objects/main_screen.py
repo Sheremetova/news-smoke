@@ -35,3 +35,6 @@ class MainScreen:
 
     def content_of(card):
         return card.find_element_by_id('descriptionText').text
+
+    def type_to_search_box(text):
+        App.driver().find_element_by_id('searchEdit').send_keys(text)

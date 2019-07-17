@@ -13,14 +13,15 @@ class NewsSmokeTests(unittest.TestCase):
 
         # then I see some news cards
         titles_before_scroll = MainScreen.titles()
-        assert len(titles_before_scroll) > 0
+        assert titles_before_scroll
 
         # when I scroll down
         scroll_down()
 
         # then I should see another news cards
         titles_after_scroll = MainScreen.titles()
-        assert len(titles_after_scroll) > 0
+
+        assert titles_after_scroll
         assert titles_before_scroll != titles_after_scroll
 
         tear_down()

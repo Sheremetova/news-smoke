@@ -38,9 +38,9 @@ class NewsSmokeTests(unittest.TestCase):
         MainScreen.wait_for_screen_active()
 
         # when I select first news card to display in the notifications bar
-        self.first_card().click()
-        first_card_title_text = self.first_card_title_text()
-        first_card_content_text = self.first_card_content_text()
+        MainScreen.first_card().click()
+        first_card_title_text = MainScreen.first_card_title_text()
+        first_card_content_text = MainScreen.first_card_content_text()
 
         # and I open Home
         self.execute_adb('shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN')
@@ -65,15 +65,6 @@ class NewsSmokeTests(unittest.TestCase):
         height = driver().get_window_size()['height']
 
         driver().swipe(width*0.5, height*0.7, width*0.5, height*0.3, 400)
-
-    def first_card(self):
-        return driver().find_element_by_id('cardView')
-
-    def first_card_title_text(self):
-        return self.first_card().find_element_by_id('titleText').get_attribute('text')
-
-    def first_card_content_text(self):
-        return self.first_card().find_element_by_id('descriptionText').get_attribute('text')
 
     def notification_titles(self):
         ntf = []

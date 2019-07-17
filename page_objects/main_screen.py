@@ -16,3 +16,12 @@ class MainScreen:
         WebDriverWait(driver(), 10).until(
         EC.presence_of_element_located((By.ID, 'cardView'))
         )
+
+    def first_card():
+        return driver().find_element_by_id('cardView')
+
+    def first_card_title_text():
+        return driver().find_element_by_id('titleText').get_attribute('text')
+
+    def first_card_content_text():
+        return driver().find_element_by_id('descriptionText').get_attribute('text')

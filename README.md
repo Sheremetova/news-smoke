@@ -20,5 +20,6 @@
   - pip install Appium-Python-Client
   
 5) Clone and cd to repository
-6) Run tests via comand line:
+
+6) Connect your device and run tests via comand line:
   pytest

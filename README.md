@@ -21,4 +21,4 @@
   
 5) Clone and cd to repository
 6) Run tests via comand line:
-  - pytest
+  pytest

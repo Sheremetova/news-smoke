@@ -47,7 +47,9 @@ class NewsSmokeTests(unittest.TestCase):
         NotificationBarScreen.wait_for_screen_active()
 
         # then I should see correct news card in notification bar
-        assert first_card_title_text in NotificationBarScreen.titles()
-        assert first_card_content_text in NotificationBarScreen.contents()
+        assert first_card_title_text in NotificationBarScreen.titles(),
+               "Notification titles doesn't contain correct text"
+        assert first_card_content_text in NotificationBarScreen.contents(),
+               "Notification contents doesn't contain correct text"
 
         tear_down()

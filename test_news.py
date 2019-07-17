@@ -1,7 +1,7 @@
-import subprocess
 import unittest
 
-from config import *
+from config import set_up, tear_down
+from device import *
 from page_objects.main_screen import MainScreen
 from page_objects.notification_bar_screen import NotificationBarScreen
 
@@ -16,7 +16,7 @@ class NewsSmokeTests(unittest.TestCase):
         assert len(titles_before_scroll) > 0
 
         # when I scroll down
-        self.scroll_down()
+        scroll_down()
 
 
         # then I should see another news cards
@@ -37,7 +37,7 @@ class NewsSmokeTests(unittest.TestCase):
         first_card_content_text = MainScreen.first_card_content_text()
 
         # and I open Home
-        self.execute_adb('shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN')
+        execute_adb('shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN')
 
         # and I open notifications
         driver().open_notifications()
@@ -48,12 +48,3 @@ class NewsSmokeTests(unittest.TestCase):
         assert first_card_content_text in NotificationBarScreen.contents()
 
         tear_down()
-
-    def scroll_down(self):
-        width = driver().get_window_size()['width']
-        height = driver().get_window_size()['height']
-
-        driver().swipe(width*0.5, height*0.7, width*0.5, height*0.3, 400)
-
-    def execute_adb(self, command):
-        subprocess.call(f'adb -s {driver().desired_capabilities["deviceUDID"]} {command}',shell=True)

@@ -13,6 +13,13 @@ class MainScreen:
 
         return titles
 
+    def contents():
+        contents = []
+
+        for el in App.driver().find_elements_by_id('descriptionText'):
+            contents.append(el.text)
+
+        return contents
 
     def wait_for_screen_active():
         WebDriverWait(App.driver(), 10).until(

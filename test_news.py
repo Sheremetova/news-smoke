@@ -75,6 +75,42 @@ class NewsSmokeTests(unittest.TestCase):
 
         App.tear_down()
 
+    def test_saving_data_without_internet(self):
+        # given internet connection is enabled
+        execute_adb('shell svc wifi enable')
+        execute_adb('shell svc data enable')
+
+        # given I install and open the app
+        App.set_up()
+        MainScreen.wait_for_screen_active()
+
+        # then I see some news cards
+        titles_before_internet_disabling = MainScreen.titles()
+        assert titles_before_internet_disabling and '' not in titles_before_internet_disabling, \
+               "Some titles are empty"
+
+        contents_before_internet_disabling = MainScreen.contents()
+        assert contents_before_internet_disabling and '' not in contents_before_internet_disabling, \
+               "Some contents are empty"
+
+        # when I close the app
+        App.driver().close_app()
+
+        # and I disable internet connection
+        execute_adb('shell svc wifi disable')
+        execute_adb('shell svc data disable')
+
+        # and I open the app
+        App.driver().launch_app()
+
+        # then I should see the same some news cards
+        assert titles_before_internet_disabling == MainScreen.titles(), \
+               "Titles changed after turning off the internet connection"
+        assert contents_before_internet_disabling == MainScreen.contents(), \
+               "Contents changed after turning off the internet connection"
+
+        App.tear_down()
+
     def wait_until_titles_updated(self, titles_before_update):
         end = time.time() + 10
         while time.time() < end:

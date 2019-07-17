@@ -5,10 +5,6 @@ from config import *
 from page_objects.main_screen import MainScreen
 from page_objects.notification_bar_screen import NotificationBarScreen
 
-PATH = lambda p: os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
-
 class NewsSmokeTests(unittest.TestCase):
     def test_scroll_down(self):
         # given I install and open the app

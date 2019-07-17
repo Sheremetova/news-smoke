@@ -22,3 +22,7 @@ class NewsSmokeTests(unittest.TestCase):
 
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_capabilities)
+
+    def tear_down(self):
+        # stop session
+        self.driver.quit()

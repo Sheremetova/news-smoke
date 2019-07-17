@@ -8,7 +8,11 @@ from page_objects.notification_bar_screen import NotificationBarScreen
 
 class NewsSmokeTests(unittest.TestCase):
     def test_scroll_down(self):
-        # given I install and open the app
+        # given internet connection is enabled
+        execute_adb('shell svc wifi enable')
+        execute_adb('shell svc data enable')
+
+        # and I install and open the app
         App.set_up()
         MainScreen.wait_for_screen_active()
 
@@ -31,7 +35,11 @@ class NewsSmokeTests(unittest.TestCase):
         App.tear_down()
 
     def test_pass_card_to_notification(self):
-        # given I install and open the app
+        # given internet connection is enabled
+        execute_adb('shell svc wifi enable')
+        execute_adb('shell svc data enable')
+
+        # and I install and open the app
         App.set_up()
         MainScreen.wait_for_screen_active()
 
@@ -58,7 +66,11 @@ class NewsSmokeTests(unittest.TestCase):
         App.tear_down()
 
     def test_news_filtering(self):
-        # given I install and open the app
+        # given internet connection is enabled
+        execute_adb('shell svc wifi enable')
+        execute_adb('shell svc data enable')
+
+        # and I install and open the app
         App.set_up()
         MainScreen.wait_for_screen_active()
 
